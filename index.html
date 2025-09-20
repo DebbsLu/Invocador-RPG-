@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Invocador RPG — Perfil de Héroe</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="scene">
+    <header class="title-card">
+      <h1>Invocador RPG</h1>
+      <p class="subtitle">Crea el perfil de tu héroe usando runas (expresiones regulares)</p>
+    </header>
+
+    <main class="panel">
+      <form id="heroForm" novalidate>
+        <div class="field">
+          <label for="heroName">Nombre de héroe</label>
+          <input id="heroName" name="heroName" placeholder="Ej: Arion" autocomplete="off" />
+          <small class="hint">Pattern: /^[A-Z][a-z]+$/</small>
+          <span class="status" id="nameStatus"></span>
+          <div class="error-msg" id="nameError"></div>
+        </div>
+
+        <div class="field">
+          <label for="playerId">ID de jugador</label>
+          <input id="playerId" name="playerId" placeholder="Ej: RPG-000123" autocomplete="off" />
+          <small class="hint">Pattern: /^RPG-\d{6}$/</small>
+          <span class="status" id="idStatus"></span>
+          <div class="error-msg" id="idError"></div>
+        </div>
+
+        <div class="field">
+          <label for="email">Correo</label>
+          <input id="email" name="email" placeholder="ejemplo@quest.com" autocomplete="off" />
+          <small class="hint">Pattern: /^[a-z0-9]+@(quest|game|gmail|hotmail|yahoo|outlook)\.com$/i;</small>
+          <span class="status" id="emailStatus"></span>
+          <div class="error-msg" id="emailError"></div>
+        </div>
+
+        <div class="actions">
+          <button id="summonBtn" type="button" disabled>🔮 Invocar héroe</button>
+        </div>
+      </form>
+
+      <section id="result" class="result hidden" aria-live="polite">
+        <div class="result-card">
+          <div class="hero-portrait">
+            <img src="img/hero-placeholder.png" alt="Retrato del héroe" />
+            <div class="glow"></div>
+          </div>
+          <div class="result-text">
+            <p id="invocationMessage" class="invocation">“Tu héroe <span id="rpgId">RPG-000123</span> ha sido invocado para la misión.”</p>
+            <p class="detail"><strong>Nombre:</strong> <span id="rpgName">Arion</span></p>
+            <p class="detail"><strong>Correo:</strong> <span id="rpgEmail">ejemplo@quest.com</span></p>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">Tip: prueba con "RPG-000123" para ver el mensaje de ejemplo.</footer>
+  </div>
+  <script src="js/script.js"></script>
+</body>
+</html>

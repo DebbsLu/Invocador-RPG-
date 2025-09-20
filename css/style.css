@@ -1,0 +1,340 @@
+:root{
+  /* paleta adaptada */
+  --c1: #6da84c;   /* color del título */
+  --c2: #bbd2da;   /* color general de texto en inputs */
+  --c3: #d9b64e;   /* color pattern */
+  --c4: #76aae1;
+  --c5: #6d4a51;
+  --c6: #5f92d7;
+  --c7: #bcd360;
+  --c8: #83af55;
+  --c9: #d44f8c;
+  --c10:#983a85;
+  --c11:#3b2f3e;
+  --c12:#4e884d;
+
+  --bg-dark: #171717;        /* fondo general del body */
+  --header-bg: #1c211e;      /* fondo del header */
+  --inputs-bg: #1c1c21;      /* fondo del contenedor de inputs */
+  --glass: rgba(255,255,255,0.06);
+  --accent: var(--c4);
+  --card: rgba(255,255,255,0.03); /* efecto glass para panel y form */
+}
+
+/* reset básico */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-dark);
+  color: #eaeaea;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding: 28px;
+}
+
+.error-msg{
+  font-size: 12px;
+  color: var(--c9);
+  margin-top: 4px;
+  min-height: 16px;
+  transition: opacity .2s ease;
+}
+
+/* escena central */
+.scene{
+  max-width:980px;
+  margin: 0 auto;
+  position:relative;
+  min-height:80vh;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+}
+
+/* título estilo pergamino */
+.title-card{
+  background-color: var(--header-bg);
+  border-radius:12px;
+  padding:18px 22px;
+  border:1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+  text-align:center;
+}
+.title-card h1{
+  font-family: 'Press Start 2P', monospace;
+  font-size:20px;
+  letter-spacing:1px;
+  color: var(--c1);
+}
+.title-card .subtitle{
+  margin-top:6px;
+  font-size:12px;
+  color: #bbd2da;
+}
+
+/* panel principal */
+.panel{
+  display:flex;
+  gap:22px;
+  align-items:flex-start;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  background-color: var(--inputs-bg);
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.03);
+  box-shadow: 0 12px 40px rgba(11,12,14,0.6);
+}
+
+/* formulario */
+form{
+  flex:1 1 420px;
+  min-width:280px;
+}
+.field{
+  margin-bottom:16px;
+  position:relative;
+}
+label{
+  display:block;
+  font-size:12px;
+  color:#75598a; /* instrucciones */
+  margin-bottom:6px;
+}
+input{
+  width:100%;
+  padding:12px 14px;
+  border-radius:8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: var(--glass); /* mantiene estilo glass */
+  color: var(--c2);         /* texto principal */
+  font-size:14px;
+  outline:none;
+  transition: box-shadow .18s, border-color .18s, transform .12s;
+}
+input:focus{
+  box-shadow: 0 6px 18px rgba(115,170,240,0.08);
+  border-color: var(--c4);
+  transform: translateY(-1px);
+}
+.hint{
+  display:inline-block;
+  margin-top:6px;
+  font-size:11px;
+  color: var(--c3); /* pattern */
+}
+.status{
+  position:absolute;
+  right:10px;
+  top:36px;
+  font-size:18px;
+  pointer-events:none;
+  opacity:0.0;
+  transform:translateY(-4px) scale(.95);
+  transition: all .15s ease;
+}
+.status.ok{
+  color: var(--c7);
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+.status.err{
+  color: var(--c9);
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+
+/* botón */
+.actions{
+  margin-top:6px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+button{
+  font-family: 'Montserrat';
+  background-color: #fdbd58; /* botón sólido */
+  padding:12px 16px;
+  border-radius:10px;
+  border:none;
+  color:#0b1220;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow: 0 4px 12px rgba(168,222,254,0.5); /* glow inicial */
+  transition: transform .12s ease, box-shadow .3s ease;
+  position: relative;
+}
+button:enabled {
+  animation: buttonGlow 2.5s ease-in-out infinite;
+}
+button:hover:not(:disabled),
+button:focus:not(:disabled) {
+  box-shadow: 
+    0 0 12px #a8defe,
+    0 0 24px #a8defe,
+    0 0 36px #a8defe;
+  transform: translateY(-1px);
+}
+button:disabled{
+  opacity:0.45;
+  transform: translateY(0);
+  cursor:not-allowed;
+}
+button:active:not(:disabled){ transform:translateY(1px) }
+
+@keyframes buttonGlow {
+  0%, 100% { box-shadow: 0 0 6px #a8defe, 0 0 12px #a8defe, 0 0 18px #a8defe; }
+  50% { box-shadow: 0 0 10px #a8defe, 0 0 20px #a8defe, 0 0 30px #a8defe; }
+}
+
+/* resultado / invocación */
+.result{
+  flex: 0 1 480px;
+  min-width:300px;
+  background: var(--glass);
+  border-radius:14px;
+  padding:16px;
+  border:1px solid rgba(255,255,255,0.03);
+  position:relative;
+  overflow:hidden;
+}
+.hidden{ display:none }
+
+/* resto de tu CSS se mantiene igual */
+
+
+.result-card{
+  display:flex;
+  align-items:center;
+  gap:14px;
+}
+.hero-portrait{
+  width:120px;
+  height:120px;
+  border-radius:12px;
+  overflow:hidden;
+  position:relative;
+  background: linear-gradient(120deg, var(--c3), var(--c4));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border: 3px solid rgba(255,255,255,0.06);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.55), 0 0 30px rgba(118,170,225,0.06) inset;
+}
+.hero-portrait img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0.95;
+  transform: translateY(6px) scale(.98);
+}
+.hero-portrait .glow{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  box-shadow: 0 0 46px 8px rgba(118,170,225,0.08);
+  mix-blend-mode:screen;
+  animation: pulseGlow 2.8s ease-in-out infinite;
+}
+
+@keyframes pulseGlow{
+  0%{ filter: blur(0px); opacity:0.6; transform: scale(1) }
+  50%{ filter: blur(6px); opacity:1; transform: scale(1.04) }
+  100%{ filter: blur(0px); opacity:0.6; transform: scale(1) }
+}
+
+/* texto invocación */
+.invocation{
+  font-family: 'Press Start 2P', monospace;
+  font-size:12px;
+  color:var(--c1);
+  margin-bottom:10px;
+  animation: floatUp 0.9s ease-out both;
+}
+@keyframes floatUp{
+  from{ transform: translateY(10px); opacity:0 }
+  to{ transform: translateY(0); opacity:1 }
+}
+
+.detail{ font-size:13px; color:#dfeaf4; margin:4px 0 }
+
+/* runas decorativas */
+.runes{ margin-top:12px; display:flex; gap:12px; align-items:center }
+.rune{ font-size:22px; opacity:0.14; animation: runeFloat 3.6s ease-in-out infinite; }
+.rune.r1{ color:var(--c7); animation-delay:0s }
+.rune.r2{ color:var(--c9); animation-delay:.6s }
+.rune.r3{ color:var(--c10); animation-delay:1.2s }
+@keyframes runeFloat{
+  0%{ transform: translateY(0) rotate(0deg) }
+  50%{ transform: translateY(-8px) rotate(8deg); opacity:0.9 }
+  100%{ transform: translateY(0) rotate(0deg) }
+}
+
+/* partículas/orbs en fondo */
+.orbs{ position:fixed; inset:0; pointer-events:none }
+.orb{
+  position:absolute;
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  filter: blur(34px);
+  opacity:.06;
+  transform:translate3d(0,0,0);
+}
+.o1{ background: radial-gradient(circle, var(--c3), transparent 60%); top:8%; left:6%; animation: drift1 22s linear infinite }
+.o2{ background: radial-gradient(circle, var(--c7), transparent 60%); bottom:10%; right:8%; animation: drift2 28s linear infinite }
+.o3{ background: radial-gradient(circle, var(--c2), transparent 60%); top:30%; right:18%; animation: drift3 24s linear infinite }
+.o4{ background: radial-gradient(circle, var(--c10), transparent 60%); bottom:30%; left:22%; animation: drift1 26s linear infinite }
+.o5{ background: radial-gradient(circle, var(--c12), transparent 60%); top:50%; left:50%; animation: drift2 30s linear infinite }
+
+@keyframes drift1{ 0%{transform:translateY(0) translateX(0)} 50%{transform:translateY(-30px) translateX(40px)} 100%{transform:translateY(0) translateX(0)} }
+@keyframes drift2{ 0%{transform:translateY(0) translateX(0)} 50%{transform:translateY(40px) translateX(-40px)} 100%{transform:translateY(0) translateX(0)} }
+@keyframes drift3{ 0%{transform:translateY(0) translateX(0)} 50%{transform:translateY(-20px) translateX(-60px)} 100%{transform:translateY(0) translateX(0)} }
+
+button {
+  font-family: 'Montserrat';
+  background-color: #fdbd58; /* color principal del botón */
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: none;
+  color: #0b1220;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(168,222,254,0.5); /* glow inicial parecido al fondo */
+  transition: transform .12s ease, box-shadow .3s ease;
+  position: relative;
+}
+
+/* Glow pulsante continuo */
+button:enabled {
+  animation: buttonGlow 2.5s ease-in-out infinite;
+}
+
+/* Opcional: efecto hover más intenso */
+button:hover:not(:disabled),
+button:focus:not(:disabled) {
+  box-shadow: 
+    0 0 12px #a8defe,
+    0 0 24px #a8defe,
+    0 0 36px #a8defe;
+  transform: translateY(-1px);
+}
+
+@keyframes buttonGlow {
+  0%, 100% { box-shadow: 0 0 6px #a8defe, 0 0 12px #a8defe, 0 0 18px #a8defe; }
+  50% { box-shadow: 0 0 10px #a8defe, 0 0 20px #a8defe, 0 0 30px #a8defe; }
+}
+
+
+
+
+/* footer */
+.footer{
+  margin-top:auto;
+  text-align:center;
+  color:#9fb5d0;
+  font-size:12px;
+  opacity:0.9;
+  padding:8px;
+}
